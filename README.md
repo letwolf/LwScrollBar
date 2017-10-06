@@ -1,11 +1,11 @@
-# lw-scroll
+# LwScrollBar
 
 Custom scroll on native javascript
 
-## What is the purpose of lw-scroll?
+## What is the purpose of LwScrollBar?
 
-lw-scroll does not emulate user scrolling, but only hides the native scroll bars.
-lw-scroll is a cross-browser solution most suitable for you.
+LwScrollBar does not emulate user scrolling, but only hides the native scroll bars.
+LwScrollBar is a cross-browser solution most suitable for you.
 
 ## Table of Contents
 
@@ -22,8 +22,8 @@ Add to html code:
 <head>
     <title>Lw Scroll</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="src/css/lw-scroll.css">
-    <script type="text/javascript" src="src/js/lw-scroll.js">
+    <link rel="stylesheet" href="src/css/lw-scrollbar.css">
+    <script type="text/javascript" src="src/js/lw-scrollbar.js">
 </head>
 <div id="wrap-content" class="wrap-content">
     <article id="container" class="container">
@@ -97,13 +97,19 @@ Horizontal scrollbar slider.
 
 **Default**: `null`
 
-### `overflowX {HTML Object}`
+### `overflowX {string}`
 
 Type of horizontal scrollbar. `['auto', 'scroll', 'hidden' ]`
 
 **Default**: `auto`
 
-### `overflowY {HTML Object}`
+### `overflowY {string}`
+
+Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
+
+**Default**: `auto`
+
+### `addEventChangeScroll {function}`
 
 Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
 
@@ -115,4 +121,4 @@ Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
 
 ## IE Support
 
-lw-scroll works with IE 9+
+LwScrollBar works with IE 9+
