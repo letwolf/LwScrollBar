@@ -25,6 +25,7 @@ Add to html code:
     <link rel="stylesheet" href="src/css/lw-scrollbar.css">
     <script type="text/javascript" src="src/js/lw-scrollbar.js">
 </head>
+<body>
 <div id="wrap-content" class="wrap-content">
     <article id="container" class="container">
         <!--Replace me with the content that will be scrolled-->
@@ -39,6 +40,8 @@ Then add javascript:
         var scrollOne = new LwScrollBar( document.getElementById( 'container' ) );
     } );
 </script>
+</body>
+</html>
 ```
 
 ## Options
