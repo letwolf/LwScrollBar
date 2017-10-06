@@ -52,10 +52,16 @@ Then add css:
 
 Then add javascript:
 
-```js
+```html
+<script type="text/javascript">
 document.addEventListener( 'DOMContentLoaded', function() {
     var scroll = new LwScrollBar( document.getElementById( 'container' ) );
 } );
+</script>
+```
+```html
+</body>
+</html>
 ```
 
 Add event on change scroll.
