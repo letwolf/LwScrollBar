@@ -10,7 +10,6 @@ LwScrollBar is a cross-browser solution most suitable for you.
 ## Table of Contents
 
 * [How to use](#how-to-use)
-* [Examples code](#examples-code)
 * [Options](#options)
 * [IE Support](#ie-support)
 * [License](#license)
@@ -18,6 +17,7 @@ LwScrollBar is a cross-browser solution most suitable for you.
 ## How to use
 
 Add to html code:
+
 ```html
 <!DOCTYPE html>
 <head>
@@ -25,29 +25,16 @@ Add to html code:
     <meta charset="utf-8">
     <link rel="stylesheet" href="src/css/lw-scrollbar.css">
     <script type="text/javascript" src="src/js/lw-scrollbar.js">
+    <style>
+        .wrap-content {
+            background: #cbcbcb;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-<div id="wrap-content" class="wrap-content">
-    <article id="container" class="container">
-        <!--Replace me with the content that will be scrolled-->
-    </div>
-</div>
-```
-
-Then add javascript:
-```html
-<script type="text/jscript">
-    document.addEventListener( 'DOMContentLoaded', function() {
-        var scroll = new LwScrollBar( document.getElementById( 'container' ) );
-    } );
-</script>
-</body>
-</html>
-```
-
-## Examples code
-
-```html
 <div id="wrap-content" class="wrap-content">
     <article id="container" class="container">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -58,22 +45,20 @@ Then add javascript:
 </div>
 ```
 
-```css
-.wrap-content {
-    background: #cbcbcb;
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
-}
-```
+Then add javascript:
 
 ```js
 document.addEventListener( 'DOMContentLoaded', function() {
     var scroll = new LwScrollBar( document.getElementById( 'container' ) );
-    
-    scroll.addEventChangeScroll( function() {
-        console.log( 'change scroll!' );
-    } );
+} );
+</body>
+</html>
+```
+
+Add event on change scroll.
+```js
+scroll.addEventChangeScroll( function() {
+    console.log( 'change scroll!' );
 } );
 ```
 
