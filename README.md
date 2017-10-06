@@ -21,3 +21,12 @@ Add to html code:
     <article id="container" class="container"></div>
 </div>
 ```
+
+Then add javascript:
+```html
+<script type="text/jscript">
+    document.addEventListener( 'DOMContentLoaded', function() {
+        var scrollOne = new LwScrollBar( document.getElementById( 'container' ) );
+    } );
+</script>
+```
