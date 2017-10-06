@@ -34,4 +34,4 @@ Then add javascript:
 
 ## License
 
-[GNU](LICENSE)
+[GNU General Public License v3.0](LICENSE)
