@@ -4,8 +4,8 @@ Custom scroll on native javascript
 
 ## What is the purpose of lw-scroll?
 
-lw-scroll does not emulate user scrolling, but only hides its own scrollbars.
-lw-scroll is a cross-browser solution that is most likely to suit you.
+lw-scroll does not emulate user scrolling, but only hides the native scroll bars.
+lw-scroll is a cross-browser solution most suitable for you.
 
 ## Table of Contents
 
@@ -35,3 +35,7 @@ Then add javascript:
 ## License
 
 [GNU General Public License v3.0](LICENSE)
+
+## IE Support
+
+lw-scroll works with IE 9+
