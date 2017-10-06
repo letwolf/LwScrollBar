@@ -18,6 +18,13 @@ lw-scroll is a cross-browser solution most suitable for you.
 
 Add to html code:
 ```html
+<!DOCTYPE html>
+<head>
+    <title>Lw Scroll</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="src/css/lw-scroll.css">
+    <script type="text/javascript" src="src/js/lw-scroll.js">
+</head>
 <div id="wrap-content" class="wrap-content">
     <article id="container" class="container">
         <!--Replace me with the content that will be scrolled-->
@@ -33,6 +40,32 @@ Then add javascript:
     } );
 </script>
 ```
+
+## Options
+
+### `scrollID {Number}`
+
+Scroll ID.
+
+**Default**: `null`
+
+### `element {HTML Object}`
+
+The element on which the custom scroll hangs.
+
+**Default**: `null`
+
+### `scroller {HTML Object}`
+
+Scrollable element.
+
+**Default**: `null`
+
+### `scrollTab {HTML Object}`
+
+Shell over content.
+
+**Default**: `null`
 
 ## License
 
