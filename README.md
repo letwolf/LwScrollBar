@@ -31,3 +31,7 @@ Then add javascript:
     } );
 </script>
 ```
+
+## License
+
+[GNU](LICENSE)
