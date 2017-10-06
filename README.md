@@ -1,2 +1,8 @@
 # lw-scroll
-Custom scrollbar
+
+Custom scroll on native javascript
+
+## What is the purpose of lw-scroll?
+
+lw-scroll does not emulate user scrolling, but only hides its own scrollbars.
+lw-scroll is a cross-browser solution that is most likely to suit you.
