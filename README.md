@@ -13,4 +13,4 @@ lw-scroll is a cross-browser solution that is most likely to suit you.
 ## Table of Contents
 * [how to use lw-scroll](#how-to-use-lw-scroll)
 
-## Before using how to use lw-scroll
+## How to use lw-scroll
