@@ -25,14 +25,6 @@ Add to html code:
     <meta charset="utf-8">
     <link rel="stylesheet" href="src/css/lw-scrollbar.css">
     <script type="text/javascript" src="src/js/lw-scrollbar.js">
-    <style>
-        .wrap-content {
-            background: #cbcbcb;
-            width: 300px;
-            height: 300px;
-            overflow: hidden;
-        }
-    </style>
 </head>
 <body>
 ```
@@ -46,6 +38,17 @@ Add to html code:
     </div>
 </div>
 ```
+Then add css:
+```html
+<style>
+.wrap-content {
+    background: #cbcbcb;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+</style>
+```
 
 Then add javascript:
 
@@ -53,8 +56,6 @@ Then add javascript:
 document.addEventListener( 'DOMContentLoaded', function() {
     var scroll = new LwScrollBar( document.getElementById( 'container' ) );
 } );
-</body>
-</html>
 ```
 
 Add event on change scroll.
