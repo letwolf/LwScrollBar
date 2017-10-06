@@ -111,9 +111,31 @@ Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
 
 ### `addEventChangeScroll {function}`
 
-Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
+Adds an event to a scroll change.
 
-**Default**: `auto`
+**Argument**: `callback`
+
+### `removeEventChangeScroll {function}`
+
+Removes event added addEventChangeScroll.
+
+**Argument**: `eventChangeID`
+
+### `remove {function}`
+
+Removes the implementation of custom scroll.
+
+### `reestablish {function}`
+
+Reestablishs the implementation of custom scroll.
+
+**Argument**: `scrollID`
+
+### `minSizeScrollBar {number}`
+
+The minimum size of the scroll bar.
+
+**Default**: `50`
 
 ## License
 
