@@ -23,8 +23,8 @@ Add to html code:
 <head>
     <title>Lw Scroll</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="src/css/lw-scrollbar.css">
-    <script type="text/javascript" src="src/js/lw-scrollbar.js">
+    <link rel="stylesheet" href="src/lw-scrollbar.css">
+    <script type="text/javascript" src="src/lw-scrollbar.js">
 </head>
 <body>
 ```
