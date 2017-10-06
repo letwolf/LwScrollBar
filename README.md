@@ -19,7 +19,9 @@ lw-scroll is a cross-browser solution most suitable for you.
 Add to html code:
 ```html
 <div id="wrap-content" class="wrap-content">
-    <article id="container" class="container"><!--Replace me with the content that will be scrolled--></div>
+    <article id="container" class="container">
+        <!--Replace me with the content that will be scrolled-->
+    </div>
 </div>
 ```
 
