@@ -14,3 +14,10 @@ lw-scroll is a cross-browser solution that is most likely to suit you.
 * [how to use lw-scroll](#how-to-use-lw-scroll)
 
 ## How to use lw-scroll
+
+Add to html code:
+```html
+<div id="wrap-content" class="wrap-content">
+    <article id="container" class="container"></div>
+</div>
+```
