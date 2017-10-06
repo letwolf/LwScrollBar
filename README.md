@@ -67,6 +67,48 @@ Shell over content.
 
 **Default**: `null`
 
+### `wrapper {HTML Object}`
+
+Basic wrapper on scroll.
+
+**Default**: `null`
+
+### `scrollBarVertical {HTML Object}`
+
+Vertical scroll bar.
+
+**Default**: `null`
+
+### `scrollBarHorizontal {HTML Object}`
+
+Horizontal scrollbar.
+
+**Default**: `null`
+
+### `scrollBarVerticalThumb {HTML Object}`
+
+Vertical scrollbar slider.
+
+**Default**: `null`
+
+### `scrollBarHorizontalThumb {HTML Object}`
+
+Horizontal scrollbar slider.
+
+**Default**: `null`
+
+### `overflowX {HTML Object}`
+
+Type of horizontal scrollbar. `['auto', 'scroll', 'hidden' ]`
+
+**Default**: `auto`
+
+### `overflowY {HTML Object}`
+
+Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
+
+**Default**: `auto`
+
 ## License
 
 [GNU General Public License v3.0](LICENSE)
