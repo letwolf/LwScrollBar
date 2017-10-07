@@ -162,7 +162,7 @@ LwScrollBar dispatches custom events.
 
 ### `changeScroll`
 
-Сreate an event to listen for changing the scroll.
+Listen for changing the scroll.
 
 **Argument**: `scrollID`
 
