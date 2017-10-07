@@ -160,6 +160,12 @@ The minimum size of the scroll bar.
 
 LwScrollBar dispatches custom events.
 
+### `changeScroll {function}`
+
+Сreate an event to listen for changing the scroll.
+
+**Argument**: `scrollID`
+
 ## License
 
 [GNU General Public License v3.0](LICENSE)
