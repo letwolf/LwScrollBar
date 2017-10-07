@@ -65,13 +65,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 </html>
 ```
 
-Add event on change scroll.
-```js
-scroll.addEventChangeScroll( function() {
-    console.log( 'change scroll!' );
-} );
-```
-
 ## Options
 
 ### `scrollID {Number}`
@@ -163,6 +156,12 @@ LwScrollBar dispatches custom events.
 ### `changeScroll`
 
 Listen for changing the scroll.
+
+```js
+scroll.scroller.addEventListener( function() {
+    console.log( 'change scroll!' );
+} );
+```
 
 ## License
 
