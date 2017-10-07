@@ -164,8 +164,6 @@ LwScrollBar dispatches custom events.
 
 Listen for changing the scroll.
 
-**Argument**: `scrollID`
-
 ## License
 
 [GNU General Public License v3.0](LICENSE)
