@@ -11,6 +11,7 @@ LwScrollBar is a cross-browser solution most suitable for you.
 
 * [How to use](#how-to-use)
 * [Options](#options)
+* [Events](#events)
 * [IE Support](#ie-support)
 * [License](#license)
 
@@ -139,18 +140,6 @@ Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
 
 **Default**: `auto`
 
-### `addEventChangeScroll {function}`
-
-Adds an event to a scroll change.
-
-**Argument**: `callback`
-
-### `removeEventChangeScroll {function}`
-
-Removes event added addEventChangeScroll.
-
-**Argument**: `eventChangeID`
-
 ### `remove {function}`
 
 Removes the implementation of custom scroll.
@@ -166,6 +155,10 @@ Reestablishs the implementation of custom scroll.
 The minimum size of the scroll bar.
 
 **Default**: `50`
+
+## Events
+
+LwScrollBar dispatches custom events.
 
 ## License
 
