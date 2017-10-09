@@ -8,6 +8,11 @@
 </head>
 <body>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
         body {
             background: #ffe2c9;
         }
@@ -88,6 +93,25 @@
             -webkit-transition: all .3s ease;
             transition: all .3s ease;
         }
+        footer {
+            color: #a79b92;
+            left: 0;
+            bottom: 0;
+            margin: 50px 30px;
+            position: absolute;
+            font-family: sans-serif, Tahoma, Arial;
+            font-weight: 100;
+            font-size: 22px;
+        }
+        footer a {
+            color: #9492a7;
+            text-decoration: none;
+            -webkit-transition: all .2s .1s ease;
+            transition: all .2s .1s ease;
+        }
+        footer a:hover {
+            color: #5d5981;
+        }
     </style>
     <div class="flex">
         <div class="flex-item">
@@ -111,6 +135,9 @@
             </div>
         </div>
     </div>
+    <footer>
+        <p>Production by <a href="https://letwolf.com">LetWolf</a></p>
+    </footer>
     <script type="text/jscript">
         document.addEventListener( 'DOMContentLoaded', function() {
             new LwScrollBar( document.getElementById( 'container1' ) );
