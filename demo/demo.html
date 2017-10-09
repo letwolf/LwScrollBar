@@ -1,1 +1,156 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LwScrpollBar</title>
+    <script src="lw-scrollbar.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="lw-scrollbar.css" type="text/css">
+</head>
+<body>
+    <style>
+        body {
+            background: #ffe2c9;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+        }
+        .flex .flex-item {
+            padding: 20px;
+            margin: auto;
+        }
+        .wrap-content {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        #container2.container {
+            width: 600px;
+        }
+        #wrap-content3 {
+            background: #415374;
+        }
+        #wrap-content3 .lw-scroll-bar {
+            background: #58bbe0;
+        }
+        #wrap-content3 .lw-scroll-bar.lw-scroll-bar-vertical {
+            width: 4px;
+        }
+        #wrap-content3 .lw-scroll-bar.lw-scroll-bar-horizontal {
+            height: 4px;
+        }
+        #wrap-content4 .lw-scroll-bar {
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+        #wrap-content4:hover .lw-scroll-bar {
+            opacity: 1;
+            visibility: visible;
+        }
+        #wrap-content5 .lw-scroll-bar.lw-scroll-bar-vertical {
+            width: 0;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+        #wrap-content5:hover .lw-scroll-bar.lw-scroll-bar-vertical {            
+            width: 5px;
+        }
+        
+        
+        #wrap-content1 {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            width: 900px;
+            height: 500px;
+            -webkit-transition: all .3s .2s ease-in;
+            transition: all .3s .2s ease-in;
+        }
+        #wrap-content1:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3),
+                        0 0 10px 2px rgba(0, 0, 0, 0.4);
+        }
+        #wrap-content1 .lw-scroll-bar-vertical {
+            width: 4px;
+            margin: 10px 5px;
+            height: calc(100% - 20px);
+        }
+        #wrap-content2 .lw-scroll-bar-horizontal {
+            margin: 10px 5px;
+            width: calc(100% - 20px);
+            height: 4px;
+        }
+        .tab {
+            width: inherit;
+            height: inherit;
+            display: flex;
+            position: relative;
+        }
+        .flex {
+            display: flex;
+        }
+        .tab-horizontal {
+            width: 900px;
+            height: inherit;
+            flex: 1;
+            display: table;
+        }
+        .tab h1, .tab-horizontal h1 {
+            margin: auto;
+            text-align: center;
+            line-height: 500px;
+            font-family: sans-serif, Tahoma, Arial;
+            font-weight: 400;
+        }
+        .tab:nth-child(1), .tab-horizontal:nth-child(1) {
+            background: #ffe2c9;
+        }
+        .tab:nth-child(2), .tab-horizontal:nth-child(2) {
+            background: #ffd8b6;
+        }
+        .tab:nth-child(3), .tab-horizontal:nth-child(3) {
+            background: #ffcc9f;
+        }
+        #wrap-content2 {
+            width: 900px;
+            height: 500px;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+    </style>
+    <div class="flex">
+        <div class="flex-item">
+            <div id="wrap-content1" class="wrap-content">
+                <article id="container1" class="container">
+                    <div class="tab"><h1>LetWolf</h1></div>
+                    <div class="tab"><h1>Scroll</h1></div>
+                    <div class="tab"><h1>Bar</h1></div>
+                </article>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div id="wrap-content2" class="wrap-content">
+                <article id="container2" class="container">
+                    <div class="flex">
+                        <div class="tab-horizontal"><h1>LetWolf</h1></div>
+                        <div class="tab-horizontal"><h1>Scroll</h1></div>
+                        <div class="tab-horizontal"><h1>Bar</h1></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <script type="text/jscript">
+        document.addEventListener( 'DOMContentLoaded', function() {
+            new LwScrollBar( document.getElementById( 'container1' ) );
+            new LwScrollBar( document.getElementById( 'container2' ) );
+        } );
+    </script>
+</body>
+</html>
