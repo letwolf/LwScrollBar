@@ -272,9 +272,6 @@
                     scrollCast[ key ].scrollTop    != then[ key ].scrollTop    ||
                     scrollCast[ key ].scrollLeft   != then[ key ].scrollLeft
                  ) {
-                    if ( key == 'scroller' )
-                        then.scroller.dispatchEvent( changeScrollEvent );
-                    
                     isChange = true;
                     break;
                 }
@@ -282,6 +279,7 @@
             
             if ( isChange ) {
                 clone();
+                then.scroller.dispatchEvent( changeScrollEvent );
                 isChange = false;
             }
         } );
@@ -458,10 +456,16 @@
         
         then.scrollBarVertical.addEventListener( 'wheel', function( e ) {
             then.scroller.scrollTop += e.deltaY || -e.wheelDelta;
+            
+            if ( then.scroller.scrollTop > 0 && then.scroller.scrollTop < then.scroller.scrollHeight - then.scroller.offsetHeight )
+                e.preventDefault();
         } );
         
         then.scrollBarHorizontal.addEventListener( 'wheel', function( e ) {
             then.scroller.scrollLeft += e.deltaX || -e.wheelDelta;
+            
+            if ( then.scroller.scrollLeft > 0 && then.scroller.scrollLeft < then.scroller.scrollWidth - then.scroller.offsetWidth )
+                e.preventDefault();
         } );
         
         then.scrollBarHorizontal.addEventListener( 'mousedown', function( e ) {
