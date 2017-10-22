@@ -158,7 +158,7 @@ LwScrollBar dispatches custom events.
 Listen for changing the scroll.
 
 ```js
-scroll.scroller.addEventListener( function() {
+scroll.scroller.addEventListener( 'changeScroll', function() {
     console.log( 'change scroll!' );
 } );
 ```
