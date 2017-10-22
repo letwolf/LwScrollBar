@@ -13,6 +13,15 @@
 } ( typeof window !== 'undefined' ? window : this, function( window, noGlobal ) {
     
     var SCROLL_ID = 0;
+
+
+    var OPTS = {
+        overflowX:                 'auto',      // Type of horizontal scrollbar. `['auto', 'scroll', 'hidden' ]`
+        overflowY:                 'auto',      // Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
+        minSizeScrollBar:          70          // The minimum size of the scroll bar
+    };
+
+    var ChangeScrollIDS = {};
     
     // Events
     
@@ -140,45 +149,44 @@
     
     function wrapScroll( container, scrollID ) {
         var wrapScroll       = document.createElement( 'div' );
-        wrapScroll.id        = 'lw-scroll-wrapper-' + scrollID;
-        wrapScroll.className = 'lw-scroll-wrapper';
-        wrapScroll.innerHTML = '<div class="lw-scroll-overflow"><div class="lw-scroll-tab"></div></div>';
+        wrapScroll.innerHTML = '<div class="lw-scroll-y"><div class="lw-scroll-x"></div></div>';
         
-        var scrollTab = wrapScroll.firstChild;
-        var scroller  = scrollTab.firstChild;
+        var scrollY = wrapScroll.firstChild;
+        var scrollX = scrollY.firstChild;
         
-        wrap( container, scroller );
-        wrap( scroller, scrollTab );
-        wrap( scrollTab, wrapScroll );
+        wrap( container, scrollX );
+        wrap( scrollX, scrollY );
     }
     
     function createScrollBarVertical( then ) {
         var scrollBar = document.createElement( 'div' );
         
-        scrollBar.className = 'lw-scroll-bar lw-scroll-bar-vertical';
-        scrollBar.innerHTML = '<div class="lw-scroll-bar-slider lw-scroll-bar-slider-vertical"></div>'
+        scrollBar.className = 'lw-scrollbar lw-scrollbar-vertical';
+        scrollBar.innerHTML = '<div class="lw-scrollbar-slider lw-scrollbar-slider-vertical"></div>'
         then.wrapper.appendChild( scrollBar );
         
-        then.scrollBarVertical      = then.wrapper.querySelector( '.lw-scroll-bar-vertical' );
-        then.scrollBarVerticalSlider = then.wrapper.querySelector( '.lw-scroll-bar-slider-vertical' );
+        then.scrollBarVertical      = then.wrapper.querySelector( '.lw-scrollbar-vertical' );
+        then.scrollBarVerticalSlider = then.wrapper.querySelector( '.lw-scrollbar-slider-vertical' );
         
         setSizeScrollBarVertical( then );
     }
     
-    function setPaddingScrollTab( then ) {
-        then.scrollTab.style.paddingRight = 50 - ( then.scroller.offsetWidth - then.scroller.clientWidth ) + 'px';
-        then.scrollTab.style.paddingRight = 50 - ( then.scroller.offsetHeight - then.scroller.clientHeight ) + 'px';
+    function setFrameSizeScroll( then ) {
+        then.scrollY.style.paddingRight  = ( then.scrollX.offsetHeight - then.scrollX.clientHeight || 20 ) + 'px';
+        then.scrollY.style.marginBottom  = -( ( then.scrollX.offsetHeight - then.scrollX.clientHeight ) * 2 || 20 ) + 'px';
+        then.scrollX.style.paddingBottom = ( then.scrollY.offsetWidth - then.scrollY.clientWidth || 20 ) + 'px';
+        then.scrollX.style.marginRight   = -( then.scrollY.offsetWidth - then.scrollY.clientWidth ) + 'px';
     }
     
     function createScrollBarHorizontal( then ) {
         var scrollBar = document.createElement( 'div' );
         
-        scrollBar.className = 'lw-scroll-bar lw-scroll-bar-horizontal';
-        scrollBar.innerHTML = '<div class="lw-scroll-bar-slider lw-scroll-bar-slider-horizontal"></div>'
+        scrollBar.className = 'lw-scrollbar lw-scrollbar-horizontal';
+        scrollBar.innerHTML = '<div class="lw-scrollbar-slider lw-scrollbar-slider-horizontal"></div>'
         then.wrapper.appendChild( scrollBar );
         
-        then.scrollBarHorizontal      = then.wrapper.querySelector( '.lw-scroll-bar-horizontal' );
-        then.scrollBarHorizontalSlider = then.wrapper.querySelector( '.lw-scroll-bar-slider-horizontal' );
+        then.scrollBarHorizontal      = then.wrapper.querySelector( '.lw-scrollbar-horizontal' );
+        then.scrollBarHorizontalSlider = then.wrapper.querySelector( '.lw-scrollbar-slider-horizontal' );
         
         setSizeScrollBarHorizontal( then );
     }
@@ -186,7 +194,7 @@
     function setPosScrollBarVertical( then ) {
         setSizeScrollBarVertical( then );
         
-        var scrollBarPge = ( then.scroller.scrollTop / ( then.scroller.scrollHeight - then.scroller.clientHeight ) * 100 ) || 0,
+        var scrollBarPge = ( then.scrollY.scrollTop / ( then.scrollY.scrollHeight - then.scrollY.clientHeight ) * 100 ) || 0,
             valPos       = ( then.scrollBarVertical.offsetHeight - then.scrollBarVerticalSlider.offsetHeight ) * scrollBarPge / 100;
         
         if ( valPos < 0 )
@@ -200,7 +208,7 @@
     function setPosScrollBarHorizontal( then ) {
         setSizeScrollBarHorizontal( then );
         
-        var scrollBarPge = ( then.scroller.scrollLeft / ( then.scroller.scrollWidth - then.scroller.clientWidth ) * 100 ) || 0,
+        var scrollBarPge = ( then.scrollX.scrollLeft / ( then.scrollX.scrollWidth - then.scrollX.clientWidth ) * 100 ) || 0,
             valPos       = ( ( then.scrollBarHorizontal.offsetWidth - then.scrollBarHorizontalSlider.offsetWidth ) * scrollBarPge / 100 );
 
         if ( valPos < 0 )
@@ -211,20 +219,11 @@
         then.scrollBarHorizontalSlider.style.transform = 'translateX(' + valPos + 'px)';
     }
     
-    function isChangeGetComputedStyle( current, last ) {
-         for ( var key in current ) {
-             if ( current[ key ] != last[ key ] ) {
-                 return true;
-             }
-             return false;
-         }
-    }
-    
     function changeScroll( then, callback ) {
         var scrollCast = {
             wrapper:                   {},
-            scroller:                  {},
-            scrollTab:                 {},
+            scrollX:                   {},
+            scrollY:                   {},
             element:                   {},
             scrollBarVertical:         {},
             scrollBarVerticalSlider:   {},
@@ -279,7 +278,7 @@
             
             if ( isChange ) {
                 clone();
-                then.scroller.dispatchEvent( changeScrollEvent );
+                then.wrapper.dispatchEvent( changeScrollEvent );
                 isChange = false;
             }
         } );
@@ -287,26 +286,41 @@
     
     function remove() {
         var then = this;
-        unWrap( then.scrollTab );
-        unWrap( then.scroller );
+        unWrap( then.scrollY );
+        unWrap( then.scrollX );
         unWrap( then.wrapper );
         then.scrollBarVertical.remove();
         then.scrollBarHorizontal.remove();
-        removeEventChangeScroll.call( then );
+        
+        ChangeScrollIDS[then.scrollID].forEach( function( changeScrollID ) {
+            lw.cancelAnimation( changeScrollID );
+        } );
     }
     
     function reestablish() {
         createScroll( this );
     }
+
+    function options( options ) {
+        for( var key in options ) {
+            this[ key ] = options[ key ];
+
+            if ( key == 'overflowY' || key == 'minSizeScrollBar'  )
+                setSizeScrollBarVertical( this );
+
+            if ( key == 'overflowX' || key == 'minSizeScrollBar' )
+                setSizeScrollBarHorizontal( this );
+        }
+    }
     
     function setSizeScrollBarVertical( then ) {
-        var sliderHeight = then.scrollBarVertical.offsetHeight / 100 * ( then.scroller.clientHeight / then.scroller.scrollHeight * 100 );
+        var sliderHeight = then.scrollBarVertical.offsetHeight / 100 * ( then.scrollY.clientHeight / then.scrollY.scrollHeight * 100 );
         then.scrollBarVerticalSlider.style.height = ( sliderHeight < then.minSizeScrollBar ? then.minSizeScrollBar : sliderHeight  ) + 'px';
         
         then.scrollBarVertical.classList.remove( 'lw-scrollbar-hide', 'lw-scrollbar-show' );
         
         if ( then.overflowY == 'auto' ) {
-            if ( then.scroller.scrollHeight == then.scroller.clientHeight ) {
+            if ( then.scrollY.scrollHeight == then.scrollY.clientHeight ) {
                 then.scrollBarVertical.classList.add( 'lw-scrollbar-hide' );
             } else {
                 then.scrollBarVertical.classList.add( 'lw-scrollbar-show' );
@@ -319,12 +333,12 @@
     }
     
     function setSizeScrollBarHorizontal( then ) {
-        var sliderWidth = then.scrollBarHorizontal.offsetWidth / 100 * ( then.scroller.clientWidth / then.scroller.scrollWidth * 100 );
+        var sliderWidth = then.scrollBarHorizontal.offsetWidth / 100 * ( then.scrollX.clientWidth / then.scrollX.scrollWidth * 100 );
         then.scrollBarHorizontalSlider.style.width = ( sliderWidth < then.minSizeScrollBar ? then.minSizeScrollBar : sliderWidth  ) + 'px';
-        then.scrollBarHorizontal.classList.remove( 'lw-scrollbar-show', 'lw-scrollbar-hide' )
+        then.scrollBarHorizontal.classList.remove( 'lw-scrollbar-show', 'lw-scrollbar-hide' );
         
         if ( then.overflowX == 'auto' ) {
-            if ( then.scroller.scrollWidth == then.scroller.clientWidth ) {
+            if ( then.scrollX.scrollWidth == then.scrollX.clientWidth ) {
                 then.scrollBarHorizontal.classList.add( 'lw-scrollbar-hide' );
             } else {
                 then.scrollBarHorizontal.classList.add( 'lw-scrollbar-show' );
@@ -350,9 +364,9 @@
             newTop = bottomEdge;
 
         var topPge    = newTop / ( then.scrollBarVertical.offsetHeight - then.scrollBarVerticalSlider.offsetHeight ) * 100,
-            posScroll = ( then.scroller.scrollHeight - then.scroller.clientHeight ) / 100 * topPge;
+            posScroll = ( then.scrollY.scrollHeight - then.scrollY.clientHeight ) / 100 * topPge;
         
-        then.scroller.scrollTop = posScroll;
+        then.scrollY.scrollTop = posScroll;
     }
     
     function slideScrollBarVertical( then ) {
@@ -393,9 +407,9 @@
             newLeft = rightEdge;
 
         var leftPge = newLeft / ( then.scrollBarHorizontal.offsetWidth - then.scrollBarHorizontalSlider.offsetWidth ) * 100,
-            posScroll = ( then.scroller.scrollWidth - then.scroller.clientWidth ) / 100 * leftPge;
+            posScroll = ( then.scrollX.scrollWidth - then.scrollX.clientWidth ) / 100 * leftPge;
 
-        then.scroller.scrollLeft = posScroll;
+        then.scrollX.scrollLeft = posScroll;
     }
     
     function slideScrollBarHorizontal( then ) {
@@ -425,46 +439,42 @@
         slideScrollBarVertical( then );
         slideScrollBarHorizontal( then );
         
-        var scrollTop  = then.scroller.scrollTop,
-            scrollLeft = then.scroller.scrollLeft;
+        var scrollTop  = then.scrollY.scrollTop,
+            scrollLeft = then.scrollX.scrollLeft;
         
-        then.scroller.addEventListener( 'scroll' , function( e ) {
-            if ( scrollTop != then.scroller.scrollTop ) {
-                scrollTop = then.scroller.scrollTop;
-                
-                then.wrapper.classList.add( 'lw-scroll-scrolled-y' );
-                then.wrapper.classList.remove( 'lw-scroll-scrolled-x' );
-            } else if ( scrollLeft != then.scroller.scrollLeft ) {
-                scrollLeft = then.scroller.scrollLeft;
+        then.scrollX.addEventListener( 'scroll', function( e ) {
                 then.wrapper.classList.add( 'lw-scroll-scrolled-x' );
                 then.wrapper.classList.remove( 'lw-scroll-scrolled-y' );
-            }
+        } );
+        then.scrollY.addEventListener( 'scroll', function( e ) {
+            then.wrapper.classList.add( 'lw-scroll-scrolled-y' );
+            then.wrapper.classList.remove( 'lw-scroll-scrolled-x' );
         } );
         
         then.scrollBarVertical.addEventListener( 'mousedown', function( e ) {
             var target    = e.target || e.srcElement || e.toElement,
                 newTop    = ( e.offsetY || e.layerY ) - then.scrollBarVerticalSlider.offsetHeight / 2,
                 topPge    = newTop / ( then.scrollBarVertical.offsetHeight - then.scrollBarVerticalSlider.offsetHeight ) * 100,
-                posScroll = ( then.scroller.scrollHeight - then.scroller.clientHeight ) / 100 * topPge;
+                posScroll = ( then.scrollY.scrollHeight - then.scrollY.clientHeight ) / 100 * topPge;
             
             if ( target == then.scrollBarVerticalSlider )
                 return false;
             
-            then.scroller.scrollTop = posScroll;
+            then.scrollY.scrollTop = posScroll;
         } );
         
         
         then.scrollBarVertical.addEventListener( 'wheel', function( e ) {
-            then.scroller.scrollTop += e.deltaY || -e.wheelDelta;
+            then.scrollY.scrollTop += e.deltaY || -e.wheelDelta;
             
-            if ( then.scroller.scrollTop > 0 && then.scroller.scrollTop < then.scroller.scrollHeight - then.scroller.offsetHeight )
+            if ( then.scrollY.scrollTop > 0 && then.scrollY.scrollTop < then.scrollY.scrollHeight - then.scrollY.offsetHeight )
                 e.preventDefault();
         } );
         
         then.scrollBarHorizontal.addEventListener( 'wheel', function( e ) {
-            then.scroller.scrollLeft += e.deltaX || -e.wheelDelta;
+            then.scrollX.scrollLeft += e.deltaX || -e.wheelDelta;
             
-            if ( then.scroller.scrollLeft > 0 && then.scroller.scrollLeft < then.scroller.scrollWidth - then.scroller.offsetWidth )
+            if ( then.scrollX.scrollLeft > 0 && then.scrollX.scrollLeft < then.scrollX.scrollWidth - then.scrollX.offsetWidth )
                 e.preventDefault();
         } );
         
@@ -472,18 +482,22 @@
             var target    = e.target || e.srcElement || e.toElement,
                 newLeft   = ( e.offsetX || e.layerX ) - then.scrollBarHorizontalSlider.offsetWidth / 2,
                 leftPge   = newLeft / ( then.scrollBarHorizontal.offsetWidth - then.scrollBarHorizontalSlider.offsetWidth ) * 100,
-                posScroll = ( then.scroller.scrollWidth - then.scroller.clientWidth ) / 100 * leftPge;
+                posScroll = ( then.scrollX.scrollWidth - then.scrollX.clientWidth ) / 100 * leftPge;
             
             if ( target == then.scrollBarHorizontalSlider )
                 return false;
             
-            then.scroller.scrollLeft = posScroll;
+            then.scrollX.scrollLeft = posScroll;
         } );
         
         
-        changeScroll( then );
+        var changeScrollID = changeScroll( then );
+        ChangeScrollIDS[ then.scrollID ] = ChangeScrollIDS[then.scrollID] ?
+                                            ChangeScrollIDS[then.scrollID].push( changeScrollID ) :
+                                                ChangeScrollIDS[then.scrollID] = [ changeScrollID ];
         var delayScrolled;
-        then.scroller.addEventListener( 'changeScroll', function( e ) {
+        
+        then.wrapper.addEventListener( 'changeScroll', function( e ) {
             if ( delayScrolled )
                 lw.cancelAnimation( delayScrolled );
             
@@ -491,7 +505,7 @@
                 then.wrapper.classList.remove( 'lw-scroll-scrolled-y', 'lw-scroll-scrolled-x' );
             }, 200 );
             
-            setPaddingScrollTab( then );
+            setFrameSizeScroll( then );
             setPosScrollBarVertical( then );
             setPosScrollBarHorizontal( then );
         }, false );
@@ -500,17 +514,17 @@
     function createScroll( then ) {
         wrapScroll( then.element, then.scrollID );
         
-        var wrapper   = document.getElementById( 'lw-scroll-wrapper-' + then.scrollID ),
-            scroller  = wrapper.firstChild,
-            scrollTab = scroller.firstChild;
+        var wrapper = then.element.parentNode.parentNode.parentNode,
+            scrollY = then.element.parentNode.parentNode,
+            scrollX = then.element.parentNode;
         
-        then.element.classList.add( 'lw-scroll-element' );
+        then.wrapper = wrapper;
+        then.scrollY = scrollY;
+        then.scrollX = scrollX;
         
-        then.wrapper   = wrapper;
-        then.scroller  = scroller;
-        then.scrollTab = scrollTab;
+        then.wrapper.classList.add( 'lw-scroll-wrapper' );
         
-        setPaddingScrollTab( then );
+        setFrameSizeScroll( then );
         
         createScrollBarVertical( then );
         createScrollBarHorizontal( then );
@@ -519,6 +533,9 @@
     
     function LwScrollBar( element ) {
         AutoIncrement();
+
+        for ( var key in OPTS )
+            this[ key ] = OPTS[ key ];
         
         this.scrollID = SCROLL_ID;
         this.element  = element;
@@ -530,19 +547,18 @@
     LwScrollBar.prototype = {
         scrollID:                  null,        // Scroll ID
         element:                   null,        // The element on which the custom scroll hangs
-        scroller:                  null,        // Scrollable element
-        scrollTab:                 null,        // Shell over content
+        scrollX:                   null,        // Scrollable element
+        scrollY:                   null,        // Shell over content
         wrapper:                   null,        // Basic wrapper on scroll.
         scrollBarVertical:         null,        // Vertical scroll bar.
         scrollBarVerticalSlider:   null,        // Horizontal scroll bar.
         scrollBarHorizontal:       null,        // Vertical scrollbar slider.
         scrollBarHorizontalSlider: null,        // Horizontal scrollbar slider.
-        overflowX:                 'auto',      // Type of horizontal scrollbar. `['auto', 'scroll', 'hidden' ]`
-        overflowY:                 'auto',      // Type of vertical scrollbar. `['auto', 'scroll', 'hidden' ]`
         remove:                    remove,      // Removes the implementation of custom scroll
         reestablish:               reestablish, // Reestablishs the implementation of custom scroll
-        minSizeScrollBar:          50,          // The minimum size of the scroll bar
+        options:                   options
     };
+    
     
     window.LwScrollBar = LwScrollBar;
     
