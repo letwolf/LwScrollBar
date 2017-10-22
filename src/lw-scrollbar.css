@@ -1,34 +1,23 @@
 .lw-scroll-wrapper {
-    width: 100%;
-    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 0;
     overflow: hidden;
     position: relative;
+    -webkit-overflow-scrolling: touch
 }
-.lw-scroll-wrapper > .lw-scroll-overflow > .lw-scroll-tab > .lw-scroll-element {
-    display: table !important;
-    position: relative !important;
-}
-.lw-scroll-tab {
-    box-sizing: border-box;
+.lw-scroll-wrapper > .lw-scroll-y {
+    box-sizing: content-box;
     min-width: 100%;
-    min-height: 100%;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    position: absolute;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
-.lw-scroll-wrapper > .lw-scroll-overflow {
-    -webkit-width: calc(100% + 50px);
-    -moz-width: calc(100% + 50px);
-    width: calc(100% + 50px);
-    -webkit-height: calc(100% + 50px);
-    -moz-height: calc(100% + 50px);
-    height: calc(100% + 50px);
-    margin: 0;
-    padding: 0;
-    overflow: scroll;
-    -ms-overflow-style: none;
-    position: relative;
-    -webkit-overflow-scrolling: touch;
+.lw-scroll-wrapper > .lw-scroll-y > .lw-scroll-x {
+    box-sizing: border-box;
+    min-height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 .lw-scroll-no-select {
     -webkit-touch-callout: none;
@@ -38,56 +27,57 @@
     -ms-user-select: none;
     user-select: none;
 }
-.lw-scroll-wrapper > .lw-scroll-overflow::-webkit-scrollbar {
+.lw-scroll-wrapper > .lw-scroll-y::-webkit-scrollbar,
+.lw-scroll-wrapper > .lw-scroll-y > .lw-scroll-x::-webkit-scrollbar {
     display: none;
 }
-.lw-scroll-wrapper > .lw-scroll-bar {
+.lw-scroll-wrapper > .lw-scrollbar {
     border-radius: 50px;
     z-index: 0;
     cursor: pointer;
     position: absolute;
 }
-.lw-scroll-wrapper > .lw-scroll-bar.lw-scrollbar-hide {
-    visibility: hidden !important;
+.lw-scroll-wrapper > .lw-scrollbar.lw-scrollbar-hide {
+    display: none !important;
 }
-.lw-scroll-wrapper > .lw-scroll-bar.lw-scrollbar-show {
-    visibility: visible !important;
+.lw-scroll-wrapper > .lw-scrollbar.lw-scrollbar-show {
+    display: block !important;
 }
-.lw-scroll-wrapper > .lw-scroll-bar-vertical {
+.lw-scroll-wrapper > .lw-scrollbar-vertical {
     width: 10px;
     height: 100%;
     top: 0;
     right: 0;
 }
-.lw-scroll-wrapper > .lw-scroll-bar-horizontal {
+.lw-scroll-wrapper > .lw-scrollbar-horizontal {
     width: 100%;
     height: 10px;
     bottom: 0;
     left: 0;
 }
-.lw-scroll-wrapper > .lw-scroll-bar .lw-scroll-bar-slider {
+.lw-scroll-wrapper > .lw-scrollbar .lw-scrollbar-slider {
     background: #808080;
     border-radius: 50px;
     position: relative;
     transition: background .3s ease;
     cursor: pointer;
 }
-.lw-scroll-wrapper > .lw-scroll-bar.lw-scrollbar-active,
-.lw-scroll-wrapper.lw-scroll-scrolled-y > .lw-scroll-bar-vertical,
-.lw-scroll-wrapper.lw-scroll-scrolled-x > .lw-scroll-bar-horizontal,
-.lw-scroll-wrapper > .lw-scroll-bar:hover {
+.lw-scroll-wrapper > .lw-scrollbar.lw-scrollbar-active,
+.lw-scroll-wrapper.lw-scroll-scrolled-y > .lw-scrollbar-vertical,
+.lw-scroll-wrapper.lw-scroll-scrolled-x > .lw-scrollbar-horizontal,
+.lw-scroll-wrapper > .lw-scrollbar:hover {
     z-index: 1;
 }
-.lw-scroll-wrapper > .lw-scroll-bar.lw-scrollbar-active > .lw-scroll-bar-slider,
-.lw-scroll-wrapper.lw-scroll-scrolled-y > .lw-scroll-bar > .lw-scroll-bar-slider-vertical,
-.lw-scroll-wrapper.lw-scroll-scrolled-x > .lw-scroll-bar >.lw-scroll-bar-slider-horizontal,
-.lw-scroll-wrapper > .lw-scroll-bar > .lw-scroll-bar-slider:hover {
+.lw-scroll-wrapper > .lw-scrollbar.lw-scrollbar-active > .lw-scrollbar-slider,
+.lw-scroll-wrapper.lw-scroll-scrolled-y > .lw-scrollbar > .lw-scrollbar-slider-vertical,
+.lw-scroll-wrapper.lw-scroll-scrolled-x > .lw-scrollbar >.lw-scrollbar-slider-horizontal,
+.lw-scroll-wrapper > .lw-scrollbar > .lw-scrollbar-slider:hover {
     background: #000000;
 }
-.lw-scroll-wrapper > .lw-scroll-bar-vertical > .lw-scroll-bar-slider-vertical {
+.lw-scroll-wrapper > .lw-scrollbar-vertical > .lw-scrollbar-slider-vertical {
     width: 100%;
 }
 
-.lw-scroll-wrapper > .lw-scroll-bar-horizontal > .lw-scroll-bar-slider-horizontal {
+.lw-scroll-wrapper > .lw-scrollbar-horizontal > .lw-scrollbar-slider-horizontal {
     height: 100%;
 }
