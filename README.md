@@ -169,4 +169,4 @@ scroll.wrapper.addEventListener( 'changeScroll', function() {
 
 ## IE Support
 
-LwScrollBar works with IE 9+
+LwScrollBar works with IE 11+
